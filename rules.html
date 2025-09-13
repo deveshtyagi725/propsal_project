@@ -1,0 +1,783 @@
+<SKIPPED_HTML_EDIT_MODE></SKIPPED_HTML_EDIT_MODE>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rules of Love - Enhanced</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d1a2d 50%, #1a1a2d 100%);
+      color: #fff;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Particle Canvas Background */
+    #particle-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Header Section */
+    .header {
+      text-align: center;
+      margin-bottom: 3rem;
+      animation: fadeInDown 1s ease-out;
+    }
+
+    .title {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      background: linear-gradient(45deg, #ff4d6d, #ff8fa3, #ffb3c1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 30px rgba(255, 77, 109, 0.3);
+      position: relative;
+    }
+
+    .title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background: linear-gradient(90deg, #ff4d6d, #ff8fa3);
+      border-radius: 2px;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      color: #d8bfd8;
+      font-weight: 300;
+      opacity: 0.9;
+    }
+
+    /* Rules Card */
+    .rules-container {
+      perspective: 1000px;
+      margin-bottom: 3rem;
+      animation: fadeInUp 1s ease-out 0.3s both;
+    }
+
+    .rules-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 24px;
+      padding: 2.5rem;
+      box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+      transform-style: preserve-3d;
+      transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .rules-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255, 77, 109, 0.1), transparent);
+      transform: rotate(45deg);
+      animation: shimmer 3s infinite;
+    }
+
+    .rule-item {
+      font-size: 1.3rem;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      padding: 1rem 1.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      border-left: 4px solid #ff4d6d;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .rule-item:hover {
+      transform: translateX(10px);
+      background: rgba(255, 77, 109, 0.15);
+      box-shadow: 0 10px 25px rgba(255, 77, 109, 0.2);
+    }
+
+    .highlight {
+      color: #ff4d6d;
+      font-weight: 600;
+      text-shadow: 0 0 10px rgba(255, 77, 109, 0.5);
+      position: relative;
+    }
+
+    .highlight::before {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, #ff4d6d, transparent);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    .rule-item:hover .highlight::before {
+      transform: scaleX(1);
+    }
+
+    .note {
+      font-style: italic;
+      color: #ffd6de;
+      text-align: center;
+      padding: 1.5rem;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: 2rem;
+      position: relative;
+    }
+
+    .note::before {
+      content: '"';
+      font-size: 3rem;
+      color: #ff4d6d;
+      position: absolute;
+      top: -10px;
+      left: 20px;
+      opacity: 0.3;
+    }
+
+    /* Buttons Section */
+    .btn-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      width: 100%;
+      max-width: 600px;
+      animation: fadeInUp 1s ease-out 0.6s both;
+    }
+
+    .btn {
+      background: linear-gradient(135deg, #ff4d6d, #ff1a4b);
+      border: none;
+      color: white;
+      padding: 1.2rem 2.5rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 
+        0 10px 30px rgba(255, 77, 109, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
+      transform: translateY(0);
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 
+        0 20px 40px rgba(255, 77, 109, 0.6),
+        0 0 0 2px rgba(255, 255, 255, 0.15);
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn:active {
+      transform: translateY(-2px) scale(1);
+    }
+
+    .btn-loading {
+      background: linear-gradient(135deg, #666, #444);
+      pointer-events: none;
+    }
+
+    .btn-loading::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      margin: -10px 0 0 -10px;
+      border: 2px solid transparent;
+      border-top: 2px solid #fff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    /* Floating Elements */
+    .floating-hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 1.5rem;
+      opacity: 0;
+      animation: floatHeart 8s linear infinite;
+      text-shadow: 0 0 10px rgba(255, 77, 109, 0.8);
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 3rem;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.9rem;
+      animation: fadeInUp 1s ease-out 0.9s both;
+    }
+
+    /* Animations */
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes floatHeart {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes shimmer {
+      0% {
+        transform: translateX(-100%) rotate(45deg);
+      }
+      100% {
+        transform: translateX(100%) rotate(45deg);
+      }
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem;
+      }
+
+      .title {
+        font-size: 2.5rem;
+      }
+
+      .rules-card {
+        padding: 1.5rem;
+      }
+
+      .rule-item {
+        font-size: 1.1rem;
+        padding: 0.8rem 1rem;
+      }
+
+      .btn-group {
+        grid-template-columns: 1fr;
+      }
+
+      .btn {
+        padding: 1rem 2rem;
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .title {
+        font-size: 2rem;
+      }
+
+      .rules-card {
+        padding: 1rem;
+      }
+
+      .rule-item {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Particle Canvas Background -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- Floating Hearts -->
+  <div class="floating-hearts" id="floating-hearts"></div>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="header">
+      <h1 class="title">The Rules of Love</h1>
+      <p class="subtitle">Where destiny weaves our hearts together</p>
+    </div>
+
+    <div class="rules-container">
+      <div class="rules-card">
+        <div class="rule-item">
+          ✨ If <span class="highlight">Heads</span> appears → <b>I will be yours</b> forever
+        </div>
+        <div class="rule-item">
+          ✨ If <span class="highlight">Tails</span> appears → <b>You will be mine</b> forever
+        </div>
+        <p class="note">No matter the outcome… destiny always keeps our hearts together</p>
+      </div>
+    </div>
+
+    <!-- Buttons Section -->
+    <div class="btn-group">
+  <a href="game.html" class="btn" id="toss-btn">
+    <span class="btn-text">Toss the Coin</span>
+    <span class="btn-icon">🎲</span>
+  </a>
+
+  <a href="syari.html" class="btn" id="toss-btn">
+    <span class="btn-text">Continue</span>
+    <span class="btn-icon">🌸</span>
+    
+  </a>
+</div>
+
+
+    <div class="footer">
+      <p>Made with ❤️ | Where love and destiny meet</p>
+    </div>
+  </div>
+
+  <script>
+    // Enhanced Particle System
+    class ParticleSystem {
+      constructor() {
+        this.canvas = document.getElementById('particle-canvas');
+        this.ctx = this.canvas.getContext('2d');
+        this.particles = [];
+        this.mouse = { x: 0, y: 0, radius: 100 };
+        
+        this.init();
+        this.animate();
+        this.setupEventListeners();
+      }
+
+      init() {
+        this.resize();
+        this.createParticles();
+      }
+
+      resize() {
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+      }
+
+      createParticles() {
+        this.particles = [];
+        const particleCount = Math.min(100, Math.floor(window.innerWidth * window.innerHeight / 10000));
+        
+        for (let i = 0; i < particleCount; i++) {
+          this.particles.push({
+            x: Math.random() * this.canvas.width,
+            y: Math.random() * this.canvas.height,
+            size: Math.random() * 3 + 1,
+            speedX: Math.random() * 2 - 1,
+            speedY: Math.random() * 2 - 1,
+            color: `hsl(${Math.random() * 360}, 70%, 60%)`,
+            opacity: Math.random() * 0.5 + 0.3
+          });
+        }
+      }
+
+      draw() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        
+        // Draw connections
+        this.ctx.strokeStyle = 'rgba(255, 77, 109, 0.1)';
+        this.ctx.lineWidth = 0.5;
+        
+        for (let i = 0; i < this.particles.length; i++) {
+          for (let j = i; j < this.particles.length; j++) {
+            const dx = this.particles[i].x - this.particles[j].x;
+            const dy = this.particles[i].y - this.particles[j].y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            
+            if (distance < 100) {
+              this.ctx.beginPath();
+              this.ctx.moveTo(this.particles[i].x, this.particles[i].y);
+              this.ctx.lineTo(this.particles[j].x, this.particles[j].y);
+              this.ctx.stroke();
+            }
+          }
+        }
+
+        // Draw particles
+        this.particles.forEach(particle => {
+          this.ctx.beginPath();
+          this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+          this.ctx.fillStyle = particle.color;
+          this.ctx.globalAlpha = particle.opacity;
+          this.ctx.fill();
+          this.ctx.globalAlpha = 1;
+        });
+      }
+
+      update() {
+        this.particles.forEach(particle => {
+          particle.x += particle.speedX;
+          particle.y += particle.speedY;
+
+          // Mouse interaction
+          const dx = particle.x - this.mouse.x;
+          const dy = particle.y - this.mouse.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          
+          if (distance < this.mouse.radius) {
+            const angle = Math.atan2(dy, dx);
+            const force = (this.mouse.radius - distance) / this.mouse.radius;
+            particle.x += Math.cos(angle) * force * 5;
+            particle.y += Math.sin(angle) * force * 5;
+          }
+
+          // Bounce off walls
+          if (particle.x > this.canvas.width || particle.x < 0) {
+            particle.speedX = -particle.speedX;
+          }
+          if (particle.y > this.canvas.height || particle.y < 0) {
+            particle.speedY = -particle.speedY;
+          }
+        });
+      }
+
+      animate() {
+        this.update();
+        this.draw();
+        requestAnimationFrame(() => this.animate());
+      }
+
+      setupEventListeners() {
+        window.addEventListener('resize', () => {
+          this.resize();
+          this.createParticles();
+        });
+
+        window.addEventListener('mousemove', (e) => {
+          this.mouse.x = e.x;
+          this.mouse.y = e.y;
+        });
+      }
+    }
+
+    // Floating Hearts Animation
+    class FloatingHearts {
+      constructor() {
+        this.container = document.getElementById('floating-hearts');
+        this.hearts = ['💖', '💕', '💞', '💓', '💗', '💘', '💝'];
+        this.createHearts();
+      }
+
+      createHearts() {
+        const heartCount = Math.floor(window.innerWidth / 50);
+        
+        for (let i = 0; i < heartCount; i++) {
+          const heart = document.createElement('div');
+          heart.className = 'heart';
+          heart.textContent = this.hearts[Math.floor(Math.random() * this.hearts.length)];
+          
+          heart.style.left = `${Math.random() * 100}%`;
+          heart.style.animationDelay = `${Math.random() * 8}s`;
+          heart.style.fontSize = `${Math.random() * 1.5 + 1}rem`;
+          
+          this.container.appendChild(heart);
+        }
+      }
+    }
+
+    // Enhanced Button Interactions
+    class ButtonManager {
+      constructor() {
+        this.tossBtn = document.getElementById('toss-btn');
+        this.surpriseBtn = document.getElementById('surprise-btn');
+        
+        this.setupButtonInteractions();
+      }
+
+      setupButtonInteractions() {
+        this.tossBtn.addEventListener('click', () => this.handleTossClick());
+        this.surpriseBtn.addEventListener('click', () => this.handleSurpriseClick());
+        
+        // Hover effects
+        const buttons = [this.tossBtn, this.surpriseBtn];
+        buttons.forEach(btn => {
+          btn.addEventListener('mouseenter', () => this.createRipple(btn, true));
+          btn.addEventListener('mouseleave', () => this.createRipple(btn, false));
+        });
+      }
+
+      createRipple(btn, isEntering) {
+        const ripple = document.createElement('span');
+        ripple.style.position = 'absolute';
+        ripple.style.borderRadius = '50%';
+        ripple.style.backgroundColor = isEntering ? 'rgba(255, 255, 255, 0.2)' : 'rgba(255, 255, 255, 0.1)';
+        ripple.style.transform = 'scale(0)';
+        ripple.style.animation = 'ripple 0.6s linear';
+        ripple.style.pointerEvents = 'none';
+        
+        const size = Math.max(btn.offsetWidth, btn.offsetHeight);
+        ripple.style.width = ripple.style.height = `${size}px`;
+        ripple.style.left = '50%';
+        ripple.style.top = '50%';
+        ripple.style.transform = 'translate(-50%, -50%) scale(0)';
+        
+        btn.appendChild(ripple);
+        
+        setTimeout(() => {
+          ripple.style.transform = 'translate(-50%, -50%) scale(2)';
+          ripple.style.opacity = '0';
+        }, 10);
+        
+        setTimeout(() => ripple.remove(), 600);
+      }
+
+      handleTossClick() {
+        this.tossBtn.classList.add('btn-loading');
+        this.tossBtn.querySelector('.btn-text').textContent = 'Loading...';
+        
+        // Create coin flip animation
+        this.createCoinAnimation();
+        
+        setTimeout(() => {
+          // Redirect to game page (simulated)
+          this.showRedirectMessage('Tossing to game page...');
+        }, 2000);
+      }
+
+      handleSurpriseClick() {
+        this.surpriseBtn.classList.add('btn-loading');
+        this.surpriseBtn.querySelector('.btn-text').textContent = 'Preparing...';
+        
+        // Create surprise animation
+        this.createSurpriseAnimation();
+        
+        setTimeout(() => {
+          // Redirect to surprise page (simulated)
+          this.showRedirectMessage('Opening surprise...');
+        }, 2000);
+      }
+
+      createCoinAnimation() {
+        const coin = document.createElement('div');
+        coin.style.cssText = `
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          width: 80px;
+          height: 80px;
+          background: linear-gradient(45deg, #ffd700, #ffed4e);
+          border-radius: 50%;
+          transform: translate(-50%, -50%);
+          box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+          animation: coinFlip 1s ease-in-out infinite;
+          z-index: 1000;
+        `;
+        
+        document.body.appendChild(coin);
+        
+        setTimeout(() => coin.remove(), 1900);
+      }
+
+      createSurpriseAnimation() {
+        const sparks = document.createElement('div');
+        sparks.style.cssText = `
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          pointer-events: none;
+          z-index: 1000;
+        `;
+        
+        for (let i = 0; i < 50; i++) {
+          const spark = document.createElement('div');
+          spark.style.cssText = `
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #ff4d6d;
+            border-radius: 50%;
+            animation: sparkle 1s ease-out;
+          `;
+          spark.style.left = `${Math.random() * 100}%`;
+          spark.style.top = `${Math.random() * 100}%`;
+          sparks.appendChild(spark);
+        }
+        
+        document.body.appendChild(sparks);
+        
+        setTimeout(() => sparks.remove(), 1000);
+      }
+
+      showRedirectMessage(message) {
+        const messageEl = document.createElement('div');
+        messageEl.style.cssText = `
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background: rgba(0, 0, 0, 0.8);
+          color: white;
+          padding: 20px 40px;
+          border-radius: 20px;
+          font-size: 1.2rem;
+          z-index: 1001;
+          backdrop-filter: blur(10px);
+        `;
+        messageEl.textContent = message;
+        
+        document.body.appendChild(messageEl);
+        
+        setTimeout(() => {
+          messageEl.remove();
+          // Simulate actual redirect (commented out for demo)
+          // window.location.href = isToss ? 'game.html' : 'surprise.html';
+        }, 1500);
+      }
+    }
+
+    // Initialize everything when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      // Add CSS for animations
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes ripple {
+          to {
+            transform: translate(-50%, -50%) scale(2);
+            opacity: 0;
+          }
+        }
+        
+        @keyframes coinFlip {
+          0%, 100% { transform: translate(-50%, -50%) rotateY(0deg); }
+          50% { transform: translate(-50%, -50%) rotateY(180deg); }
+        }
+        
+        @keyframes sparkle {
+          0% { transform: scale(0); opacity: 1; }
+          100% { transform: scale(2); opacity: 0; }
+        }
+      `;
+      document.head.appendChild(style);
+
+      // Initialize systems
+      new ParticleSystem();
+      new FloatingHearts();
+      new ButtonManager();
+
+      // Add 3D tilt effect to rules card
+      const rulesCard = document.querySelector('.rules-card');
+      rulesCard.addEventListener('mousemove', (e) => {
+        const rect = rulesCard.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateY = (x - centerX) / centerX * 5;
+        const rotateX = (centerY - y) / centerY * 5;
+        
+        rulesCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      });
+
+      rulesCard.addEventListener('mouseleave', () => {
+        rulesCard.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+      });
+    });
+  </script>
+</body>
+</html>
+
+```

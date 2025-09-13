@@ -1,0 +1,381 @@
+:root{
+  --rose:#ff4d6d;
+  --rose-deep:#ff3b5c;
+  --rose-dark:#e03150;
+  --ink:#1a1a1a;
+  --paper:#fff7f9;
+  --white:#ffffff;
+  --glass: rgba(255,255,255,.12);
+  --line: rgba(255,255,255,.25);
+  --text: #fff;              /* main on red gradient */
+  --text-soft: #ffe9ef;      /* softer headings */
+  --muted: rgba(255,255,255,.85);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family: Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
+  color:var(--text);
+  min-height:100vh;
+  background:
+    radial-gradient(1200px 600px at 80% 35%, rgba(255,255,255,.08), transparent 60%),
+    linear-gradient(135deg,#ffd6e0 0%,#ffc2d1 20%,#ff8fa3 55%,#ff4d6d 100%);
+  overflow-x:hidden;
+}
+
+/* Hearts background */
+.heart-bg{ position:fixed; inset:0; pointer-events:none; z-index:-1; }
+.heart{
+  position:absolute;width:18px;height:18px;background:rgba(255,255,255,.24);
+  transform:rotate(45deg);filter:blur(.2px);
+  animation:float 6s ease-in-out infinite;border-radius:3px;
+}
+.heart::before,.heart::after{
+  content:""; position:absolute;width:18px;height:18px;background:rgba(255,255,255,.24);border-radius:50%;
+}
+.heart::before{top:-9px;left:0}
+.heart::after {top:0;left:-9px}
+@keyframes float{
+  0%,100%{transform:rotate(45deg) translateY(0) scale(1)}
+  50%{transform:rotate(45deg) translateY(-18px) scale(1.06)}
+}
+
+.container{max-width:1050px;margin:0 auto;min-height:100vh;display:grid;place-items:center;padding:42px 20px}
+.card{
+  width:100%;background:var(--glass);border:1px solid var(--line);border-radius:28px;
+  box-shadow:0 20px 60px rgba(0,0,0,.15);backdrop-filter: blur(12px);overflow:hidden;
+}
+.wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:12px}
+@media (max-width:900px){ .wrap{grid-template-columns:1fr} }
+
+.left{padding:48px 42px 36px 42px}
+.right{position:relative;min-height:360px;display:grid;place-items:center;padding:24px}
+
+.brand{display:flex;gap:8px;align-items:center;margin-bottom:10px}
+.dot{width:10px;height:10px;border-radius:50%;background:#ff8fa3;box-shadow:0 0 0 6px rgba(255,255,255,.15)}
+.logo{
+  font-weight:800;letter-spacing:.3px;
+  background: linear-gradient(90deg,#fff,#ffe6ea);
+  -webkit-background-clip:text;background-clip:text;color:transparent;font-size:20px;
+}
+
+h1{
+  font-size: clamp(34px, 4.5vw, 60px);
+  line-height:1.04;font-weight:900;letter-spacing:.2px;
+  color:var(--text-soft);
+  text-shadow: 0 2px 18px rgba(255,255,255,.18);
+}
+h1 .accent{
+  background:linear-gradient(90deg,#ff87a0 0%, #ff4d6d 50%, #ff2e63 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+
+.sub{margin-top:18px;font-size:clamp(18px,2vw,20px);color:var(--muted)}
+
+.quote-card{
+  margin-top:22px;border-radius:20px;padding:18px 20px;background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.22)
+}
+.quote{font-size:18px;line-height:1.55;color:#fff}
+.who{opacity:.9;margin-top:6px;font-size:14px;color:#fffdfd}
+
+.form{margin-top:26px;display:flex;gap:12px;flex-wrap:wrap}
+.input{
+  flex:1 1 280px;border:none;border-radius:1000px;padding:16px 20px;font-size:16px;
+  background:rgba(255,255,255,.95);color:#1b1b1b;outline:none;
+  transition:.25s transform,.25s box-shadow;
+}
+.input:focus{transform:translateY(-1px);box-shadow:0 8px 22px rgba(0,0,0,.15)}
+
+.btn{
+  appearance:none;border:none;border-radius:999px;padding:16px 28px;
+  background: radial-gradient(120% 180% at 30% 30%, #ff7b92 0%, #ff4d6d 45%, #ff2e63 100%);
+  color:#fff;font-weight:800;letter-spacing:.2px;cursor:pointer;
+  box-shadow:0 10px 28px rgba(255,45,99,.35), inset 0 1px 0 rgba(255,255,255,.25);
+  transition:transform .15s ease, box-shadow .2s ease, filter .2s ease;
+  position:relative;overflow:hidden;isolation:isolate;user-select:none;
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(255,45,99,.44)}
+.btn:active{transform:translateY(0) scale(.99)}
+.btn::after{
+  content:""; position:absolute; inset:-100% auto -100% -60%;
+  width:40%; transform:skewX(-20deg); background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);
+  animation:none; opacity:.0; pointer-events:none;
+}
+.btn.sweep::after{animation:sweep 700ms ease;opacity:1}
+@keyframes sweep{
+  0%{transform:skewX(-20deg) translateX(-20%)}
+  100%{transform:skewX(-20deg) translateX(480%)}
+}
+
+/* WhatsApp link */
+.center{text-align:center}
+.link{
+  display:inline-block;margin-top:10px;text-decoration:none;background:#25D366;color:white;
+  padding:14px 24px;border-radius:999px;font-weight:800;letter-spacing:.2px;
+  box-shadow:0 10px 24px rgba(37,211,102,.35);
+  transition:transform .15s ease, box-shadow .2s ease;
+}
+.link:hover{transform:translateY(-2px);box-shadow:0 16px 36px rgba(37,211,102,.45)}
+.mini{margin-top:10px;opacity:.95}
+
+/* Pages */
+.page{display:none;opacity:0;transform:translateY(16px);transition:600ms ease}
+.page.active{display:block;opacity:1;transform:translateY(0)}
+
+.big-heart{font-size:64px;text-align:center;margin:14px 0;animation:heartbeat 1.6s ease-in-out infinite}
+.confession{
+  text-align:center;font-size:clamp(22px,2.8vw,28px);line-height:1.6;margin:10px 0 24px 0;
+  text-shadow:0 2px 6px rgba(0,0,0,.15); color:#fffefc;
+}
+@keyframes heartbeat{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+
+/* Hover Scene (image that moves back and swaps on hover) */
+/* Hover Scene – Advanced Curved 3D Rotation */
+.hover-scene {
+  position: relative;
+  width: min(340px, 70vw);
+  height: min(340px, 70vw);
+  border-radius: 30px;                 /* ✅ smooth curved edges */
+  overflow: hidden;
+  perspective: 1400px;                 /* deeper 3D perspective */
+  transform-style: preserve-3d;
+  background: linear-gradient(145deg, rgba(255,0,128,.15), rgba(0,255,255,.08));
+  box-shadow: 
+    0 25px 80px rgba(0,0,0,.35),       /* outer deep shadow */
+    inset 0 0 18px rgba(255,255,255,.25), /* glossy inner glow */
+    0 0 25px var(--rose);              /* neon glow */
+  transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1),
+              box-shadow 0.6s ease;
+}
+
+/* Base + Alternate Images */
+.scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 28px;                 /* ✅ match curve inside */
+  transition: opacity .7s ease, transform .8s ease;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+/* Front image */
+.scene.base {
+  opacity: 1;
+  transform: translateZ(0) scale(1.01);
+}
+
+/* Back/alt image */
+.scene.alt {
+  opacity: 0;
+  transform: rotateY(-45deg) translateZ(-80px) scale(1.05);
+}
+
+/* 🔥 Super-advanced hover animation */
+.hover-scene:hover {
+  transform: rotateY(25deg) rotateX(15deg) scale(1.03);
+  box-shadow: 
+    0 35px 120px rgba(0,0,0,.5),
+    inset 0 0 25px rgba(255,255,255,.25),
+    0 0 35px var(--rose), 
+    0 0 70px var(--rose-deep);
+}
+
+.hover-scene:hover .scene.base {
+  opacity: 0.15;
+  filter: blur(2px) brightness(0.8);
+  transform: rotateY(12deg) rotateX(8deg) translateZ(25px);
+}
+
+.hover-scene:hover .scene.alt {
+  opacity: 1;
+  transform: rotateY(0deg) rotateX(0deg) translateZ(45px) scale(1.08);
+  filter: contrast(1.1) saturate(1.1);
+}
+
+/* ✨ Bonus shimmer overlay for realism */
+.hover-scene::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 30px;
+  background: linear-gradient(
+    120deg,
+    transparent 30%,
+    rgba(255,255,255,.15) 50%,
+    transparent 70%
+  );
+  transform: translateX(-100%);
+  transition: transform 0.9s ease;
+}
+.hover-scene:hover::after {
+  transform: translateX(100%);
+}
+
+
+.photo-box {
+  position: relative;
+  display: inline-block;
+}
+
+.photo-box {
+  position: relative;
+  display: inline-block;
+}
+
+.photo-box img {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  transition: transform 0.8s ease, box-shadow 0.8s ease;
+}
+
+/* 🌸 Full border using ::before and ::after */
+/* 🌸 Flower border around the photo */
+.photo-box::before {
+  content: "🌸 🌸 🌸 🌸 🌸 🌸 🌸 🌸";
+  position: absolute;
+  top: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 22px;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.photo-box::after {
+  content: "🌸 🌸 🌸 🌸 🌸 🌸 🌸 🌸";
+  position: absolute;
+  bottom: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 22px;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+/* Left + Right borders with extra spans */
+.photo-box .side-flowers {
+  content: "🌸🌸🌸🌸🌸";
+  position: absolute;
+  writing-mode: vertical-rl;
+  font-size: 22px;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.photo-box .side-flowers.left {
+  top: 50%;
+  left: -28px;
+  transform: translateY(-50%);
+}
+.photo-box .side-flowers.right {
+  top: 50%;
+  right: -28px;
+  transform: translateY(-50%);
+}
+
+/* 🌸 Show border on hover */
+.photo-box:hover::before,
+.photo-box:hover::after,
+.photo-box:hover .side-flowers {
+  opacity: 1;
+}
+
+
+/* 🌸 Repeating flower border */
+.photo-box::before {
+  background: repeating-linear-gradient(0deg, transparent, transparent 25px, 🌸 26px),
+              repeating-linear-gradient(90deg, transparent, transparent 25px, 🌸 26px);
+}
+
+.photo-box::after {
+  background: repeating-linear-gradient(180deg, transparent, transparent 25px, 🌸 26px),
+              repeating-linear-gradient(270deg, transparent, transparent 25px, 🌸 26px);
+}
+
+/* 🌸 On hover → border appears */
+.photo-box:hover::before,
+.photo-box:hover::after {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+
+
+/* subtle parallax via JS adds translate() for realism */
+
+/* Developer credit */
+footer{ text-align:center;padding:20px }
+.credit{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:10px 18px;border-radius:999px;background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.22);backdrop-filter: blur(6px);
+  box-shadow:0 10px 30px rgba(0,0,0,.18);
+}
+.credit-text{font-weight:800;letter-spacing:.3px}
+.floral{filter:drop-shadow(0 6px 10px rgba(0,0,0,.22));animation:floatFloral 3.5s ease-in-out infinite}
+@keyframes floatFloral{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-4px) rotate(6deg)}}
+
+/* Petal particles produced on click */
+.petal{
+  position:fixed; left:0; top:0; width:14px; height:18px; pointer-events:none; z-index:9999;
+  transform:translate(-50%,-50%) translate(var(--dx,0),var(--dy,0)) rotate(var(--rot,0deg));
+  opacity:0; filter:drop-shadow(0 4px 4px rgba(0,0,0,.18));
+  animation:petal-flight var(--dur,900ms) ease-out forwards, petal-roll calc(var(--dur,900ms) * 1.2) linear forwards;
+}
+.petal::before{
+  content:""; position:absolute; inset:0;
+  background:
+    radial-gradient(120% 90% at 40% 35%, #ffd9e2 0%, transparent 45%),
+    radial-gradient(100% 100% at 50% 70%, #ffd1dc 0%, transparent 55%),
+    radial-gradient(90% 80% at 50% 30%, var(--rose) 0%, var(--rose-deep) 55%, var(--rose-dark) 100%);
+  border-radius: 12px 12px 12px 4px / 16px 16px 10px 10px;
+}
+.petal::after{content:""; position:absolute; bottom:-3px; left:40%; width:6px; height:5px; border-radius:50%; background:#b21f3b; filter:blur(.4px); opacity:.6;}
+@keyframes petal-flight{
+  0%{opacity:0; transform:translate(-50%,-50%) translate(0,0) rotate(0deg) scale(.9)}
+  8%{opacity:1}
+  100%{opacity:0; transform:translate(-50%,-50%) translate(var(--dx),var(--dy)) rotate(var(--rot)) scale(.9)}
+}
+@keyframes petal-roll{
+  0%{filter:drop-shadow(0 4px 4px rgba(0,0,0,.18))}
+  100%{filter:drop-shadow(0 10px 12px rgba(0,0,0,.10))}
+}
+.whatsapp-link {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.whatsapp-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 20px; /* edge curve box */
+  box-shadow: 0 0 15px rgba(0,255,0,0.6);
+  cursor: pointer;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.whatsapp-icon:hover {
+  transform: rotateY(360deg) scale(1.2); /* advanced rotation */
+  box-shadow: 0 0 25px rgba(0,255,0,1);
+}
+.credit-text {
+  color: inherit;        /* keep same color as before */
+  text-decoration: none; /* remove underline */
+  font-weight: 500;
+  position: relative;
+  cursor: pointer;
+}
+.btn-group {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+}
+

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Love Proposal — Devesh Tyagi</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Floating hearts background -->
+  <div class="heart-bg" id="heartBackground"></div>
+
+  <!-- STEP 1 (MUSIC): Place your MP3 at assets/music/your-song.mp3
+       You can rename it; just update the src below.
+       Autoplay is user-gesture gated by script.js for best browser support. -->
+  <audio id="bgMusic" src="assests/tera.mp3" loop preload="auto"></audio>
+
+  <div class="container">
+    <div class="card">
+      <!-- PAGE 1: Quotes + Name + WhatsApp link -->
+      <div class="wrap page active" id="page1">
+        <div class="left">
+          <div class="brand">
+            <span class="dot"></span>
+            <div class="logo">Love Proposal</div>
+          </div>
+ 
+          <h1>Scared To <span class="accent">Propose</span> Someone?</h1>
+          <p class="sub">Don’t worry! Enter your valentine’s name and generate a beautiful proposal link.</p>
+
+          <div class="quote-card">
+            <div class="quote">“Every love story is beautiful, but ours will be my favorite.”</div>
+            <div class="who">— a hopeful romantic</div>
+          </div>
+
+          <form class="form" id="formGen">
+            <input id="userName" class="input" type="text" placeholder="Enter their beautiful name…" />
+            <button class="btn" data-burst type="submit">💌 Create Magic Link</button>
+          </form>
+
+          <div id="whatsappContainer" class="center" style="display:none">
+            <a id="whatsappLink" class="link" target="_blank" rel="noopener">Send on WhatsApp</a>
+            <div class="mini">Share this and then open the link to see the surprise ✨</div>
+          </div>
+        </div>
+
+        <!-- RIGHT VISUAL: Hover image scene -->
+        <div class="right">
+          <!-- Replace images in /assets/images as needed -->
+          <div class="hover-scene" id="hoverScene" aria-label="Romantic scene">
+            <img class="scene base" src="assests/photo1.jpeg" alt="Flower photo"/>
+            <img class="scene alt"  src="assests/photo.jpeg" alt="Boy giving flower on one knee"/>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAGE 2: Confession -->
+      <div class="wrap page" id="page2">
+        <div class="left">
+          <div class="brand">
+            <span class="dot"></span>
+            <div class="logo">Love Proposal</div>
+          </div>
+
+          <div class="big-heart">❤️</div>
+          <div class="confession">
+            Hey <span id="displayName">Beautiful</span>,<br/>
+            I’ve been wanting to say this… My heart skips a beat every time I see you. Would you be mine? 🌹
+          </div>
+
+          <div class="center" style="margin-top:8px">
+            <button class="btn" data-burst id="btnBack">⬅ Back to Beginning</button>
+          </div>
+        </div>
+
+        <div class="right">
+          <div class="hover-scene" aria-label="Romantic scene">
+            <img class="scene base" src="assests/photo1.jpeg" alt="Flower photo"/>
+            <img class="scene alt"  src="assests/photo.jpeg" alt="Boy giving flower on one knee"/>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Developer credit with floral accent -->
+   <footer>
+  <div class="credit">
+    <span class="floral">🌸</span>
+    <a href="https://github.com/deveshtyagi725" target="_blank" class="credit-text">
+      Developed by <strong>Devesh Tyagi</strong>
+    </a>
+    <span class="floral">🌸</span>
+  </div>
+</footer>
+
+
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

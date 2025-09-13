@@ -1,0 +1,94 @@
+/* Background hearts animation (same theme as game) */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', cursive;
+  background: radial-gradient(circle at top, #ff4d6d, #1a1a1a);
+  color: #fff;
+  overflow: hidden;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  text-align: center;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 0 25px rgba(255, 77, 109, 0.8);
+  animation: floatBox 4s ease-in-out infinite;
+}
+
+@keyframes floatBox {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-shadow: 0 0 15px #ff4d6d, 0 0 25px #ff3b5c;
+  margin-bottom: 20px;
+}
+
+.rules-card {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  margin-bottom: 25px;
+  color: #ffe6ec;
+}
+
+.rules-card .highlight {
+  color: #ff4d6d;
+  font-weight: bold;
+  text-shadow: 0 0 10px #ff4d6d;
+}
+
+.rules-card .note {
+  margin-top: 10px;
+  font-style: italic;
+  color: #ffd6de;
+}
+
+.btn {
+  background: #ff4d6d;
+  border: none;
+  color: white;
+  padding: 12px 28px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 20px rgba(255, 77, 109, 0.7);
+}
+
+.btn:hover {
+  background: #ff1a4b;
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(255, 26, 75, 0.9);
+}
+
+/* Floating hearts animation */
+.hearts-bg::before, 
+.hearts-bg::after {
+  content: "💖 💕 💞 💓 💗";
+  position: absolute;
+  font-size: 2rem;
+  animation: floatHearts 10s linear infinite;
+  opacity: 0.6;
+}
+
+.hearts-bg::after {
+  animation-delay: 5s;
+  left: 20%;
+}
+
+@keyframes floatHearts {
+  from { top: 100%; transform: translateX(0); }
+  to { top: -10%; transform: translateX(30px); }
+}

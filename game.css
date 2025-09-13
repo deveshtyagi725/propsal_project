@@ -1,0 +1,110 @@
+/* game.css - page specific (keeps the same theme/colors as style.css) */
+
+/* Center coin visual and style (keeps neon/pink glow from theme) */
+/* Coin styling */
+.coin {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: url("assests/coin.jpeg") center/cover no-repeat;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 600ms cubic-bezier(.2,1,.22,1), box-shadow 300ms;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* coin flip animation */
+.coin.spin {
+  animation: coinFlip 1.5s ease-in-out forwards;
+}
+
+@keyframes coinFlip {
+  0%   { transform: rotateY(0deg); }
+  30%  { transform: rotateY(720deg) scale(1.1); }
+  70%  { transform: rotateY(1440deg) scale(1.1); }
+  100% { transform: rotateY(1800deg) scale(1); }
+}
+
+
+/* Flower burst animation */
+.flower {
+  position: absolute;
+  font-size: 28px;
+  pointer-events: none;
+  animation: burst 1s ease-out forwards;
+}
+
+@keyframes burst {
+  0% { transform: scale(0) translate(0,0); opacity: 1; }
+  80% { transform: scale(1.2) translate(var(--x), var(--y)); opacity: 1; }
+  100% { transform: scale(0.8) translate(var(--x), var(--y)); opacity: 0; }
+}
+
+
+/* Result text */
+.result {
+  min-height:46px;
+  font-size:22px;
+  font-weight:700;
+  color:var(--text);
+  text-shadow: 0 6px 30px rgba(255,77,109,0.18);
+  transition: transform .4s ease, opacity .35s;
+  opacity:0;
+  transform: translateY(8px);
+}
+.result.show {
+  opacity:1;
+  transform: translateY(0);
+}
+
+/* Rose bloom (large centered emoji) */
+.rose-bloom {
+  position:fixed;
+  left:50%;
+  top:40%;
+  transform:translate(-50%,-50%) scale(.2);
+  font-size:6.5rem;
+  pointer-events:none;
+  filter: drop-shadow(0 10px 40px rgba(255, 70, 110, .25));
+  animation: rosePop 1100ms cubic-bezier(.2,.9,.2,1);
+  z-index:999;
+}
+@keyframes rosePop {
+  0%   { transform: translate(-50%,-50%) scale(.2); opacity:0; }
+  60%  { transform: translate(-50%,-50%) scale(1.15); opacity:1; }
+  100% { transform: translate(-50%,-50%) scale(1.0); opacity:0; }
+}
+
+/* Petal pieces (small falling dots) */
+.petal {
+  position:fixed;
+  width:14px; height:18px;
+  pointer-events:none;
+  border-radius: 8px 8px 8px 4px / 16px 12px 10px 10px;
+  z-index:900;
+  transform: translate(-50%,-50%);
+  animation: petalFall var(--dur,2200ms) ease-out forwards;
+}
+.petal::before{
+  content:"";
+  position:absolute; inset:0;
+  background:
+    radial-gradient(120% 90% at 40% 35%, #ffd9e2 0%, transparent 45%),
+    radial-gradient(100% 100% at 50% 70%, #ffd1dc 0%, transparent 55%),
+    radial-gradient(90% 80% at 50% 30%, var(--rose) 0%, var(--rose-deep) 55%, var(--rose-dark) 100%);
+  border-radius: inherit;
+  filter: drop-shadow(0 6px 12px rgba(0,0,0,.12));
+}
+@keyframes petalFall {
+  0% { transform: translate(-50%,-50%) translateY(-40px) rotate(0deg); opacity:1; }
+  100% { transform: translate(-50%,-50%) translateY(110vh) rotate(720deg); opacity:0; }
+}
+
+/* small responsive tweak */
+@media (max-width:520px) {
+  .coin { width:120px; height:120px; }
+  .coin-face { font-size:44px; }
+  .rose-bloom { font-size:4.5rem; top:45% }
+}

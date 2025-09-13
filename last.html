@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Love Proposal ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', cursive, sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
+      background-size: 400% 400%;
+      animation: bgAnimation 10s ease infinite;
+      overflow-x: hidden;
+    }
+
+    @keyframes bgAnimation {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: fixed;
+      width: 18px;
+      height: 18px;
+      background: rgba(255,255,255,0.8);
+      transform: rotate(45deg);
+      animation: float 8s linear infinite;
+      border-radius: 4px;
+      z-index: 0;
+    }
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      background: rgba(255,255,255,0.8);
+      border-radius: 50%;
+    }
+    .heart::before { top: -9px; left: 0; }
+    .heart::after { left: -9px; top: 0; }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(45deg); opacity: 0; }
+      30% { opacity: 1; }
+      100% { transform: translateY(-20vh) rotate(45deg); opacity: 0; }
+    }
+
+    .container {
+      position: relative;
+      z-index: 10;
+      max-width: 520px;
+      margin: 40px auto;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      background: rgba(255,255,255,0.25);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px 20px;
+      color: #3b1d1d;
+      text-align: center;
+    }
+
+    .slide {
+      display: none;
+      animation: fadeIn 1s;
+    }
+    .slide.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      0%{opacity:0; transform: scale(0.96);}
+      100%{opacity:1; transform: scale(1);}
+    }
+
+    .love-img {
+      width: 92%;
+      max-height: 300px;
+      object-fit: cover;
+      border-radius: 16px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+      margin-bottom: 18px;
+      background: #f7f7f7;
+    }
+
+    .nav-btn {
+      padding: 10px 28px;
+      margin: 12px;
+      font-weight: bold;
+      background: #c3bef7;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .nav-btn:hover {
+      background: #ffcad4;
+      transform: scale(1.08);
+    }
+
+    .loverbtn {
+      padding: 12px 40px;
+      margin: 12px;
+      font-size: 1.1em;
+      border-radius: 28px;
+      border: none;
+      color: #fff;
+      background: linear-gradient(135deg,#ff758c,#ff7eb3);
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .loverbtn:hover {
+      background: #fff;
+      color: #ff758c;
+      transform: scale(1.1);
+    }
+
+    #meaning {
+      margin-top: 18px;
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #4b2e2e;
+    }
+
+    #visitBtn {
+      display: none;
+      margin-top: 20px;
+      background: #6c63ff;
+      color: #fff;
+      padding: 14px 36px;
+      border-radius: 30px;
+      font-size: 1.1em;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    #visitBtn:hover {
+      background: #4b2e2e;
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating hearts background -->
+  <script>
+    for(let i=0;i<18;i++){
+      let heart=document.createElement("div");
+      heart.className="heart";
+      heart.style.left=Math.random()*100+"vw";
+      heart.style.animationDuration=3+Math.random()*5+"s";
+      document.body.appendChild(heart);
+    }
+  </script>
+
+  <div class="container">
+
+    <!-- Slide 1 -->
+    <div class="slide active">
+      <img class="love-img" src="https://via.placeholder.com/400x250?text=Welcome+Image" alt="Welcome">
+      <h2>Welcome to My Proposal 💕</h2>
+      <p>Every word is a heartbeat, every slide a step closer to you.</p>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="slide">
+      <img class="love-img" src="https://via.placeholder.com/400x250?text=Our+Story" alt="Our Story">
+      <h2>Our Story</h2>
+      <p>From stolen glances to shared laughter, every moment with you is magic.</p>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="slide">
+      <img class="love-img" src="https://via.placeholder.com/400x250?text=Feelings" alt="Feelings">
+      <h2>My Feelings</h2>
+      <p>You inspire me to love deeper, dream brighter, and smile wider.</p>
+    </div>
+
+    <!-- Slide 4 -->
+    <div class="slide">
+      <img class="love-img" src="https://via.placeholder.com/400x250?text=Promise" alt="Promise">
+      <h2>My Promise</h2>
+      <p>I promise to cherish, respect, and hold you in my heart forever.</p>
+    </div>
+
+    <!-- Slide 5 -->
+    <div class="slide">
+      <img class="love-img" src="https://via.placeholder.com/400x250?text=Memories" alt="Memories">
+      <h2>Our Moments</h2>
+      <p>A journey of memories, each more beautiful than the last.</p>
+    </div>
+
+    <!-- Slide 6 -->
+    <div class="slide">
+      <img class="love-img" src="https://via.placeholder.com/400x250?text=Proposal" alt="Proposal">
+      <h2>Will You Be Mine? 💍</h2>
+      <div>
+        <button class="loverbtn" id="yes-btn">Yes</button>
+        <button class="loverbtn" id="no-btn">No</button>
+      </div>
+      <div id="meaning"></div>
+      <button id="visitBtn" onclick="window.open('https://your-proposal-website.com','_blank')">
+        Visit My Proposal Website 🌹
+      </button>
+    </div>
+
+    <!-- Nav buttons -->
+    <div style="text-align:center; margin-top:20px;">
+      <button class="nav-btn" id="prevBtn" onclick="showSlide(-1)">Previous</button>
+      <button class="nav-btn" id="nextBtn" onclick="showSlide(1)">Next</button>
+    </div>
+  </div>
+
+  <script>
+    // Slide navigation
+    let curr = 0;
+    const slides = document.querySelectorAll('.slide');
+
+    function showSlide(dir) {
+      slides[curr].classList.remove('active');
+      curr += dir;
+      if (curr < 0) curr = 0;
+      if (curr >= slides.length) curr = slides.length - 1;
+      slides[curr].classList.add('active');
+      document.getElementById('prevBtn').style.display = (curr === 0) ? 'none' : '';
+      document.getElementById('nextBtn').style.display = (curr === slides.length-1) ? 'none' : '';
+    }
+
+    // Init
+    showSlide(0);
+    document.getElementById('prevBtn').style.display = 'none';
+
+    // Yes/No button
+    const yesBtn = document.getElementById("yes-btn");
+    const noBtn = document.getElementById("no-btn");
+    const meaningDiv = document.getElementById("meaning");
+    const visitBtn = document.getElementById("visitBtn");
+
+    yesBtn.onclick = function() {
+      meaningDiv.innerHTML = "💖 Yes means new beginnings, happiness & shared dreams together!";
+      visitBtn.style.display = "inline-block";
+    }
+    noBtn.onclick = function() {
+      meaningDiv.innerHTML = "💔 No means I respect your choice & wish you eternal happiness.";
+      visitBtn.style.display = "inline-block";
+    }
+  </script>
+</body>
+</html>
