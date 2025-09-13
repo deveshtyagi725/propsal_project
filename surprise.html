@@ -1,93 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>This Is All For You</title>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
 
+  <style>
+    :root {
+      --accent: #ff3d68;
+      --btn-bg: linear-gradient(45deg, #ff6a9e, #ff3d68);
+      --shadow: 0 4px 15px rgba(255, 61, 104, 0.4);
+      --muted: rgba(255, 255, 255, 0.7);
+      --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* Reset and base */
+    * {
+      box-sizing: border-box;
+    }
     body {
-      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #fceabb 0%, #f8b500 100%);
+      font-family: var(--font-family);
       color: #fff;
       overflow-x: hidden;
-      position: relative;
-      min-height: 100vh;
-      background: linear-gradient(135deg, #ff758c, #ff7eb3, #fad0c4, #fcb69f);
-      background-size: 300% 300%;
-      animation: bgAnimation 12s infinite alternate ease-in-out;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      user-select: none;
     }
 
-    @keyframes bgAnimation {
-      0% { background-position: left top; }
-      100% { background-position: right bottom; }
-    }
-
-    #particles {
+    /* Particle canvas background */
+    #particleCanvas {
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      z-index: 0; pointer-events: none;
+      z-index: -2;
+      pointer-events: none;
     }
 
-    .heart {
+    /* Floating hearts */
+    .heart-bg {
       position: fixed;
-      bottom: -50px;
-      color: rgba(255, 255, 255, 0.8);
-      font-size: 24px;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+    .heart-bg::before, .heart-bg::after {
+      content: "💖";
+      position: absolute;
       animation: floatUp 8s linear infinite;
-      z-index: 0;
+      font-size: 22px;
+      opacity: 0.7;
     }
-
+    .heart-bg::after {
+      animation-delay: 4s;
+      left: 50%;
+    }
     @keyframes floatUp {
-      0% { transform: translateY(0) scale(1); opacity: 1; }
-      100% { transform: translateY(-110vh) scale(1.5); opacity: 0; }
+      from { transform: translateY(100vh) scale(0.8); opacity: 0; }
+      to   { transform: translateY(-10vh) scale(1.4); opacity: 1; }
     }
 
-    .container {
-      position: relative;
-      z-index: 1;
-      padding: 60px 20px;
-      text-align: center;
-      max-width: 1200px;
-      margin: auto;
+    /* Container */
+    main.container {
+      padding: 48px 20px;
+      max-width: 1100px;
+      margin: 0 auto;
     }
 
+    /* Outer card container (renamed from .card to avoid nested conflicts) */
+    .card-container {
+      background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+      box-shadow: 0 8px 30px rgba(255, 105, 180, 0.3);
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 1000px;
+      margin: 0 auto;
+      color: #fff;
+      user-select: none;
+    }
+
+    /* Brand */
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 1.3em;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .dot {
+      width: 14px;
+      height: 14px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent);
+    }
+    .logo {
+      user-select: text;
+    }
+
+    /* Heading and sub */
     h1 {
-      font-family: 'Great Vibes', cursive;
-      font-size: 3.2em;
-      margin-bottom: 40px;
-      background: linear-gradient(90deg, #ff99cc, #fff, #ff66aa, #ff3399);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 30px rgba(255,150,200,0.7);
-      animation: shimmer 4s infinite linear;
+      margin-bottom: 16px;
+      font-weight: 800;
+      font-size: 2.4em;
+      text-shadow: 0 0 10px rgba(255, 61, 104, 0.7);
+    }
+    .sub {
+      font-style: italic;
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 24px;
+      user-select: text;
     }
 
-    @keyframes shimmer {
-      0% { text-shadow: 0 0 15px #ff99cc; }
-      50% { text-shadow: 0 0 35px #fff; }
-      100% { text-shadow: 0 0 15px #ff66cc; }
-    }
-
+    /* Gallery grid */
     .gallery {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 25px;
-      margin-top: 40px;
+      margin-top: 30px;
     }
 
-    .card { perspective: 1000px; }
+    /* Card perspective */
+    .card {
+      perspective: 1000px;
+      cursor: pointer;
+      border-radius: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      background: transparent;
+    }
+    .card:hover {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 0 10px 30px rgba(255, 105, 180, 0.6);
+      z-index: 10;
+    }
+
+    /* Card inner flip */
     .card-inner {
       position: relative;
       width: 100%;
       padding-top: 100%;
       transform-style: preserve-3d;
-      transition: transform 0.6s ease;
+      transition: transform 0.8s ease;
+      border-radius: 20px;
     }
-    .card:hover .card-inner { transform: rotateY(180deg); }
+    .card:hover .card-inner {
+      transform: rotateY(180deg);
+    }
 
+    /* Card faces */
     .card-face {
       position: absolute;
       top: 0; left: 0;
@@ -95,169 +163,217 @@
       border-radius: 20px;
       backface-visibility: hidden;
       overflow: hidden;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+      box-shadow: var(--shadow);
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.4s ease;
+      user-select: text;
     }
 
+    /* Front face */
     .card-front {
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(10px);
-      border: 3px solid transparent;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(8px);
+      border: 2px solid rgba(255, 255, 255, 0.12);
+      transition: border 0.3s ease, box-shadow 0.3s ease;
     }
     .card-front img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       border-radius: 20px;
+      pointer-events: none;
+      user-select: none;
     }
     .card:hover .card-front {
-      border: 3px solid #ff66b2;
-      box-shadow: 0 0 25px #ff99cc;
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 25px var(--accent);
     }
 
+    /* Back face */
     .card-back {
       background: rgba(0, 0, 0, 0.65);
       transform: rotateY(180deg);
-      font-size: 1.2em;
       padding: 20px;
       color: #fff;
       text-align: center;
+      border-radius: 20px;
+      font-size: 1.1em;
+      line-height: 1.5;
+      box-shadow: inset 0 0 20px rgba(255,100,180,0.4);
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 20px;
-      background-image: linear-gradient(135deg, rgba(255,150,200,0.2), rgba(255,80,160,0.2));
-      box-shadow: inset 0 0 20px rgba(255,100,180,0.5);
-      animation: glowText 3s infinite alternate;
+      user-select: text;
     }
 
-    @keyframes glowText {
-      0% { text-shadow: 0 0 10px #ff80bf, 0 0 20px #ff66b2; }
-      100% { text-shadow: 0 0 20px #ff3399, 0 0 40px #ff66cc; }
-    }
-
-    footer {
-      margin-top: 40px;
-      font-size: 1em;
-      opacity: 0.85;
-      text-shadow: 0 0 10px #fff;
-    }
-
-    /* Next Button */
+    /* Next button */
     .next-btn {
-      margin-top: 30px;
+      margin-top: 28px;
       display: inline-block;
-      padding: 12px 30px;
-      font-size: 1.2em;
-      color: #fff;
-      background: linear-gradient(45deg, #ff3399, #ff66cc, #ff99cc);
-      border: none;
+      padding: 14px 32px;
+      font-size: 1em;
       border-radius: 30px;
       cursor: pointer;
+      border: none;
+      background: var(--btn-bg);
+      color: #fff;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      user-select: none;
       text-decoration: none;
-      box-shadow: 0 0 20px rgba(255, 100, 180, 0.6);
-      transition: all 0.3s ease;
-      animation: pulse 2s infinite;
+      text-align: center;
     }
-
+    .next-btn::after {
+      content: "";
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,.4), transparent);
+      transition: left 0.6s ease;
+      pointer-events: none;
+      border-radius: 30px;
+    }
+    .next-btn:hover::after {
+      left: 100%;
+    }
     .next-btn:hover {
-      background: linear-gradient(45deg, #ff66cc, #ff99cc, #ff3399);
-      box-shadow: 0 0 30px rgba(255, 100, 180, 0.9);
-      transform: scale(1.1);
+      transform: scale(1.07);
+      box-shadow: 0 0 30px var(--accent);
     }
 
-    @keyframes pulse {
-      0% { box-shadow: 0 0 10px rgba(255,100,180,0.5); }
-      50% { box-shadow: 0 0 25px rgba(255,100,180,1); }
-      100% { box-shadow: 0 0 10px rgba(255,100,180,0.5); }
+    /* Footer */
+    footer {
+      margin-top: 18px;
+      text-align: center;
+      color: #fff;
+      font-weight: 500;
+      font-size: 0.9em;
+      user-select: none;
+    }
+    footer a.credit-text {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      user-select: text;
+    }
+    footer a.credit-text:hover {
+      text-decoration: underline;
+    }
+    .floral {
+      margin: 0 6px;
+      user-select: none;
     }
   </style>
 </head>
 <body>
-  <canvas id="particles"></canvas>
+  <!-- particle canvas -->
+  <canvas id="particleCanvas"></canvas>
 
-  <!-- Floating hearts -->
-  <div class="heart">💖</div>
-  <div class="heart">❤️</div>
-  <div class="heart">💞</div>
+  <!-- floating hearts -->
+  <div class="heart-bg" id="heartBackground"></div>
 
-  <div class="container">
-    <h1>This Is All For You</h1>
-    <div class="gallery">
-      <!-- Your cards remain the same -->
-      <div class="card"><div class="card-inner"><div class="card-face card-front"><img src="assests/sus7.jpeg"></div><div class="card-face card-back">"With you, even silence feels like a beautiful song.💕😴🌹"</div></div></div>
-      <div class="card"><div class="card-inner"><div class="card-face card-front"><img src="assests/sus6.jpeg"></div><div class="card-face card-back">"If love had a name, it would always be you 💌🌹❤️"</div></div></div>
-      <div class="card"><div class="card-inner"><div class="card-face card-front"><img src="assests/sus5.jpeg"></div><div class="card-face card-back">"You are the dream I never want to wake up from 😴💖🌙"</div></div></div>
-      <div class="card"><div class="card-inner"><div class="card-face card-front"><img src="assests/sus4.jpeg"></div><div class="card-face card-back">"Every heartbeat carries your name within it 💓✨"</div></div></div>
-      <div class="card"><div class="card-inner"><div class="card-face card-front"><img src="assests/sus3.jpeg"></div><div class="card-face card-back">"You are my reason to believe in magic again ✨🧚‍♀️💕"</div></div></div>
-      <div class="card"><div class="card-inner"><div class="card-face card-front"><img src="assests/sus2.jpeg"></div><div class="card-face card-back">"Your smile is the spark that lights up my world 😍🔥🌟"</div></div></div>
-      <div class="card"><div class="card-inner"><div class="card-face card-front"><img src="assests/sus1.jpeg"></div><div class="card-face card-back">"Loving you is the most beautiful truth of my life 💕🌹"</div></div></div>
-      <div class="card"><div class="card-inner"><div class="card-face card-front"><img src="assests/sus8.jpeg"></div><div class="card-face card-back">"You are not my chapter, you are my whole story 📖💞"</div></div></div>
+  <main class="container">
+    <div class="card-container" style="border-radius:20px;">
+      <div style="text-align:center;">
+        <div class="brand">
+          <span class="dot"></span>
+          <div class="logo">Love Proposal</div>
+        </div>
+
+        <h1>💖 This Is All For You</h1>
+        <p class="sub">
+          A gallery of love — flip the cards to see the magic inside. 🌹
+        </p>
+
+        <div class="gallery">
+          <div class="card"><div class="card-inner">
+            <div class="card-face card-front"><img src="assests/sus7.jpeg" alt="Love Image 1"></div>
+            <div class="card-face card-back">"With you, even silence feels like a beautiful song.💕😴🌹"</div>
+          </div></div>
+
+          <div class="card"><div class="card-inner">
+            <div class="card-face card-front"><img src="assests/sus6.jpeg" alt="Love Image 2"></div>
+            <div class="card-face card-back">"If love had a name, it would always be you 💌🌹❤️"</div>
+          </div></div>
+
+          <div class="card"><div class="card-inner">
+            <div class="card-face card-front"><img src="assests/sus5.jpeg" alt="Love Image 3"></div>
+            <div class="card-face card-back">"You are the dream I never want to wake up from 😴💖🌙"</div>
+          </div></div>
+
+          <div class="card"><div class="card-inner">
+            <div class="card-face card-front"><img src="assests/sus4.jpeg" alt="Love Image 4"></div>
+            <div class="card-face card-back">"Every heartbeat carries your name within it 💓✨"</div>
+          </div></div>
+
+          <div class="card"><div class="card-inner">
+            <div class="card-face card-front"><img src="assests/sus3.jpeg" alt="Love Image 5"></div>
+            <div class="card-face card-back">"You are my reason to believe in magic again ✨🧚‍♀️💕"</div>
+          </div></div>
+
+          <div class="card"><div class="card-inner">
+            <div class="card-face card-front"><img src="assests/sus2.jpeg" alt="Love Image 6"></div>
+            <div class="card-face card-back">"Your smile is the spark that lights up my world 😍🔥🌟"</div>
+          </div></div>
+        </div>
+
+        <a href="last.html" class="next-btn" aria-label="Next Page">➡ Next Page</a>
+      </div>
     </div>
 
+    <!-- footer -->
     <footer>
-      <p>With all my love, just for you ❤️</p>
+      <div class="credit">
+        <span class="floral" aria-hidden="true">🌸</span>
+        <a href="https://github.com/deveshtyagi725" target="_blank" rel="noopener noreferrer" class="credit-text">Developed by <strong>Devesh Tyagi</strong></a>
+        <span class="floral" aria-hidden="true">🌸</span>
+      </div>
     </footer>
+  </main>
 
-    <!-- Next Button -->
-    <a href="" class="next-btn">Next ➝</a>
-  </div>
-
+  <!-- particle + hearts script -->
   <script>
-    /* Particle Background */
-    const canvas = document.getElementById('particles');
-    const ctx = canvas.getContext('2d');
+    const canvas = document.getElementById("particleCanvas");
+    const ctx = canvas.getContext("2d");
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    let particlesArray;
-    function initParticles() {
-      particlesArray = [];
-      for (let i = 0; i < 100; i++) {
-        particlesArray.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          size: Math.random() * 2 + 1,
-          speedX: (Math.random() - 0.5) * 0.5,
-          speedY: (Math.random() - 0.5) * 0.5
-        });
-      }
+    let particles = [];
+    for (let i = 0; i < 60; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        dx: (Math.random() - 0.5) * 1.2,
+        dy: (Math.random() - 0.5) * 1.2,
+        size: 2 + Math.random() * 2
+      });
     }
 
-    function animateParticles() {
+    function drawParticles() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "rgba(255,255,255,0.7)";
-      particlesArray.forEach(p => {
+      for (let p of particles) {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(255,255,255,0.8)";
         ctx.fill();
-        p.x += p.speedX;
-        p.y += p.speedY;
 
-        if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
-        if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
-      });
-      requestAnimationFrame(animateParticles);
+        p.x += p.dx;
+        p.y += p.dy;
+        if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+      }
+      requestAnimationFrame(drawParticles);
     }
-
-    initParticles();
-    animateParticles();
+    drawParticles();
 
     window.addEventListener("resize", () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      initParticles();
-    });
-
-    /* Floating hearts randomize */
-    const hearts = document.querySelectorAll('.heart');
-    hearts.forEach(h => {
-      h.style.left = Math.random() * 100 + 'vw';
-      h.style.animationDuration = (6 + Math.random() * 4) + 's';
-      h.style.fontSize = (20 + Math.random() * 20) + 'px';
     });
   </script>
 </body>

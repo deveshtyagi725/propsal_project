@@ -1,64 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Let us play a game — Coin Toss</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Let us play a game — Coin Toss</title>
 
-  <!-- reuse the main theme so fonts/colors/shadows are identical -->
-  <link rel="stylesheet" href="style.css" />
-  <!-- small page-specific rules -->
-  <link rel="stylesheet" href="game.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="game.css" />
 </head>
 <body>
-  <!-- same heart background element id so visual matches exactly -->
-  <div class="heart-bg" id="heartBackground"></div>
+    <audio id="bgMusic" src="assets/tera.mp3" loop autoplay></audio>
 
-  <main class="container" style="padding:48px 20px;">
-    <div class="card" style="border-radius:20px;padding:40px;max-width:860px;margin:0 auto;">
-      <div class="wrap" style="grid-template-columns:1fr;align-items:center;gap:18px;">
-        <div style="text-align:center;">
-          <div class="brand" style="justify-content:center;margin-bottom:6px;">
-            <span class="dot"></span>
-            <div class="logo">Love Proposal</div>
-          </div>
+    <div class="heart-bg" id="heartBackground"></div>
 
-          <h1 style="margin-bottom:8px">💖 Let us play a game</h1>
-          <p class="sub" style="margin-bottom:18px;color:var(--muted);">
-            Click the coin to toss it — a rose will bloom for the result. Good luck! 🌹
-          </p>
+    <main id="app-container" class="container" style="padding:48px 20px;">
+        <div class="card" style="border-radius:20px;padding:40px;max-width:860px;margin:0 auto;">
+            <div class="wrap" style="grid-template-columns:1fr;align-items:center;gap:18px;">
+                <div style="text-align:center;">
+                    <div class="brand" style="justify-content:center;margin-bottom:6px;">
+                        <span class="dot"></span>
+                        <div class="logo">Love Proposal</div>
+                    </div>
 
-          <!-- coin + result -->
-          <div id="playArea" style="position:relative;display:flex;flex-direction:column;align-items:center;gap:18px;">
-            <div id="coin" class="coin" role="button" aria-label="Toss the coin" tabindex="0"></div>
+                    <h1 style="margin-bottom:8px">💖 Let us play a game</h1>
+                    <p class="sub" style="margin-bottom:18px;color:var(--muted);">
+                        Click the coin to toss it — a rose will bloom for the result. Good luck! 🌹
+                    </p>
 
+                    <div id="playArea" style="position:relative;display:flex;flex-direction:column;align-items:center;gap:18px;">
+                        <div id="coin" class="coin" role="button" aria-label="Toss the coin" tabindex="0"></div>
+                        <div id="result" class="result" aria-live="polite"></div>
 
-            <div id="result" class="result" aria-live="polite"></div>
+                        <div style="display:flex;gap:14px;align-items:center;">
+                            <a href="rules.html" id="rulesBtn" class="btn" style="display:none">➡ Go to Rules of the Game</a>
+                            <button id="retryBtn" class="btn" style="display:none;background:transparent;border:2px solid rgba(255,255,255,.12);color:var(--muted)">🔄 Toss Again</button>
+                        </div>
+                    </div>
 
-            <div style="display:flex;gap:14px;align-items:center;">
-              <button id="rulesBtn" class="btn" style="display:none">➡ Go to Rules of the Game</button>
-              <button id="retryBtn" class="btn" style="display:none;background:transparent;border:2px solid rgba(255,255,255,.12);color:var(--muted)">🔄 Toss Again</button>
+                    <div style="margin-top:18px;color:var(--muted);font-size:14px;">
+                        Results are random — have fun! <br/>
+                    </div>
+                </div>
             </div>
-          </div>
-
-          <div style="margin-top:18px;color:var(--muted);font-size:14px;">
-            Results are random — have fun! <br/>
-            
-          </div>
         </div>
-      </div>
-    </div>
+    </main>
 
-    <!-- footer credit reused -->
     <footer style="margin-top:18px;text-align:center">
-      <div class="credit" style="margin:0 auto">
-        <span class="floral">🌸</span>
-        <a href="https://github.com/deveshtyagi725" target="_blank" class="credit-text">Developed by <strong>Devesh Tyagi</strong></a>
-        <span class="floral">🌸</span>
-      </div>
+        <div class="credit" style="margin:0 auto">
+            <span class="floral">🌸</span>
+            <a href="https://github.com/deveshtyagi725" target="_blank" class="credit-text">Developed by <strong>Devesh Tyagi</strong></a>
+            <span class="floral">🌸</span>
+        </div>
     </footer>
-  </main>
-
-  <script src="game.js"></script>
+   
+    <script src="game.js"></script>
+   
 </body>
 </html>
